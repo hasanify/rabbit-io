@@ -4,38 +4,39 @@
 
 @layer base {
   @font-face {
-    font-family: 'Inter Var';
+    font-family: "Inter Var";
     font-weight: 100 900;
     font-display: block;
     font-style: normal;
-    font-named-instance: 'Regular';
-    src: url('/public/assets/fonts/Inter/inter-roman.var.woff2') format('woff2');
+    font-named-instance: "Regular";
+    src: url("/assets/fonts/Inter/inter-roman.var.woff2") format("woff2");
   }
 
   @font-face {
-    font-family: 'Inter Var';
+    font-family: "Inter Var";
     font-weight: 100 900;
     font-display: block;
     font-style: italic;
-    font-named-instance: 'Italic';
-    src: url('/public/assets/fonts/Inter/inter-italic.var.woff2') format('woff2');
+    font-named-instance: "Italic";
+    src: url("/assets/fonts/Inter/inter-italic.var.woff2") format("woff2");
   }
 
   @font-face {
-    font-family: 'Mackinac';
-    src: url('/public/assets/fonts/Mackinac/mackinac-bold.woff2') format('woff2');
+    font-family: "Mackinac";
+    src: url("/assets/fonts/Mackinac/mackinac-bold.woff2") format("woff2");
     font-weight: 700;
     font-style: normal;
     font-display: block;
   }
 
   html {
-    font-family: 'Inter Var', sans-serif;
+    font-family: "Inter Var", sans-serif;
     font-weight: 500;
   }
+
   .shapes-bg {
     @apply p-0 m-0 w-full h-[100dvh];
-    background: url('/public/assets/images/background.webp') no-repeat center fixed;
+    background: url("/assets/images/background.webp") no-repeat center fixed;
     background-size: cover;
   }
 
@@ -48,23 +49,23 @@
   }
 
   .hero {
-    background: url('/public/assets/images/shapes.webp') no-repeat center fixed;
+    background: url("/assets/images/shapes.webp") no-repeat center fixed;
     background-size: cover;
     background-blend-mode: overlay;
   }
 
   .dashboard {
     @apply p-0 m-0 w-screen h-[100dvh];
-    background: url('/public/assets/images/background.webp') no-repeat center fixed;
+    background: url("/assets/images/background.webp") no-repeat center fixed;
     background-size: cover;
   }
 
   .p22 {
-    font-family: 'Mackinac', sans-serif;
+    font-family: "Mackinac", sans-serif;
   }
 
   .inter {
-    font-family: 'Inter Var', sans-serif;
+    font-family: "Inter Var", sans-serif;
   }
 
   .shadow-outline {

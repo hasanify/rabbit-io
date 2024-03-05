@@ -2,12 +2,12 @@
  * This file was @generated using pocketbase-typegen
  */
 
-import type PocketBase from 'pocketbase';
-import type {RecordService} from 'pocketbase';
+import type PocketBase from "pocketbase";
+import type {RecordService} from "pocketbase";
 
 export enum Collections {
-  Projects = 'projects',
-  Users = 'users',
+  Projects = "projects",
+  Users = "users",
 }
 
 // Alias types for improved usability
@@ -35,14 +35,16 @@ export type AuthSystemFields<T = never> = {
 // Record types for each collection
 
 export enum ProjectsStatusOptions {
-  'queued' = 'queued',
-  'building' = 'building',
-  'success' = 'success',
-  'failed' = 'failed',
-  'uploading' = 'uploading',
+  "queued" = "queued",
+  "building" = "building",
+  "uploading" = "uploading",
+  "distributing" = "distributing",
+  "success" = "success",
+  "failed" = "failed",
 }
-export type ProjectsRecord = {
+export type ProjectsRecord<> = {
   build_dir?: string;
+  domain?: string;
   git_url?: string;
   logs?: string[];
   owner?: RecordIdString;
@@ -55,9 +57,15 @@ export type UsersRecord = {
   name?: string;
 };
 
+export type ProjectsMetadata = {
+  icon?: string;
+  title?: string;
+};
+
 // Response types include system fields and match responses from the PocketBase API
 export type ProjectsResponse<Texpand = unknown> = Required<ProjectsRecord> &
-  BaseSystemFields<Texpand>;
+  BaseSystemFields<Texpand> &
+  ProjectsMetadata;
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>;
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -76,6 +84,6 @@ export type CollectionResponses = {
 // https://github.com/pocketbase/js-sdk#specify-typescript-definitions
 
 export type TypedPocketBase = PocketBase & {
-  collection(idOrName: 'projects'): RecordService<ProjectsResponse>;
-  collection(idOrName: 'users'): RecordService<UsersResponse>;
+  collection(idOrName: "projects"): RecordService<ProjectsResponse>;
+  collection(idOrName: "users"): RecordService<UsersResponse>;
 };

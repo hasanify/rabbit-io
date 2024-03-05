@@ -1,20 +1,22 @@
-import {motion, useMotionTemplate, useMotionValue} from 'framer-motion';
-import {AlignRightIcon, ChevronRight, XIcon} from 'lucide-react';
-import {useState} from 'react';
-import {Helmet} from 'react-helmet';
-import Logo from '../components/Logo';
+import Logo from "@/components/Logo";
+import {pb} from "@/utils/pocketbase";
+import {motion, useMotionTemplate, useMotionValue} from "framer-motion";
+import {AlignRightIcon, ChevronRight, XIcon} from "lucide-react";
+import {useState} from "react";
+import {Link} from "react-router-dom";
 
 const Landing = () => {
-  let mouseX = useMotionValue(0);
-  let mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
+  // eslint-disable-next-line
   const handleMouseMove = ({clientX, clientY}: any) => {
     mouseX.set(clientX);
     mouseY.set(clientY);
   };
+
   return (
     <>
-      <Helmet></Helmet>
       <main onMouseMove={handleMouseMove} className="landing hero">
         <motion.div
           className="absolute inset-0 top-0 left-0 pointer-events-none"
@@ -33,7 +35,7 @@ const Landing = () => {
               <p className="max-w-[90%] sm:mt-6 text-sm mt-8 text-center sm:text-start text-light/70 inter">
                 One-click deployment for your React projects.
                 <br />
-                Effortless, instant, and hassle-free. Get your projects live{' '}
+                Effortless, instant, and hassle-free. Get your projects live{" "}
                 <span className="text-white underline decoration-accent_1">in seconds!</span>
               </p>
 
@@ -60,27 +62,28 @@ const Nav = () => {
     <>
       <nav className="flex items-baseline justify-between w-full py-6">
         <div className="flex items-baseline justify-start">
-          <Logo className={'w-16 -ml-3'} />
+          <Logo className={"w-16 -ml-3"} />
           <span className="pl-8 pr-2 text-xl font-bold rounded-full -ml-11 p22">abbit</span>
         </div>
         <div className="flex-row hidden gap-6 sm:flex text-sm font-[500]">
-          <a className="transition-all ease-in-out hover:text-accent_1" href="/">
+          <a className="transition-all ease-in-out hover:text-accent_1" href="#">
             Articles
           </a>
-          <a className="transition-all ease-in-out hover:text-accent_1" href="/">
+          <a className="transition-all ease-in-out hover:text-accent_1" href="#">
             Docs
           </a>
-          <a className="transition-all ease-in-out hover:text-accent_1" href="/">
+          <a className="transition-all ease-in-out hover:text-accent_1" href="#">
             Pricing
           </a>
         </div>
 
-        <a
-          href="/"
+        <Link
+          draggable={false}
+          to={pb.authStore.isValid ? "/dashboard" : "/login"}
           className="hidden px-8 font-[500] py-2 text-sm border rounded-md shadow-lg border-white/30 sm:block  ease-in-out duration-300 bg-gradient-to-br from-transparent to-transparent hover:from-accent_1 hover:to-accent_2"
         >
-          Sign Up
-        </a>
+          {pb.authStore.isValid ? "Dashboard" : "Login"}
+        </Link>
         <button className="sm:hidden" onClick={() => setShowMenu(!showMenu)}>
           <AlignRightIcon className="w-10 transition-all ease-in-out duration-100 h-auto p-1 border-[2px] border-transparent rounded-lg aspect-square hover:border-white" />
         </button>
@@ -99,23 +102,24 @@ const Menu = ({setShowMenu}: {setShowMenu: React.Dispatch<React.SetStateAction<b
         </button>
         <div className="flex flex-col items-center h-[100dvh] w-screen justify-evenly">
           <div className="flex-col justify-center items-center flex gap-6 text-sm font-[500]">
-            <a className="transition-all ease-in-out hover:text-accent_1" href="/">
+            <a className="transition-all ease-in-out hover:text-accent_1" href="#">
               Articles
             </a>
-            <a className="transition-all ease-in-out hover:text-accent_1" href="/">
+            <a className="transition-all ease-in-out hover:text-accent_1" href="#">
               Docs
             </a>
-            <a className="transition-all ease-in-out hover:text-accent_1" href="/">
+            <a className="transition-all ease-in-out hover:text-accent_1" href="#">
               Pricing
             </a>
           </div>
 
-          <a
-            href="/"
+          <Link
+            to={pb.authStore.isValid ? "/dashboard" : "/login"}
+            draggable={false}
             className="px-8 font-[500] py-2 text-sm border rounded-md shadow-lg  bg-gradient-to-br border-white/30 from-accent_1 to-accent_2"
           >
-            Sign Up
-          </a>
+            {pb.authStore.isValid ? "Dashboard" : "Login"}
+          </Link>
         </div>
       </div>
     </>

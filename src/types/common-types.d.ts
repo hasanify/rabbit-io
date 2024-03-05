@@ -5,6 +5,7 @@ interface User {
   record: Record;
   token: string;
 }
+
 interface Record {
   avatar: string;
   clients: string[];
@@ -19,6 +20,7 @@ interface Record {
   username: string;
   verified: boolean;
 }
+
 interface Meta {
   id: string;
   name: string;
@@ -30,6 +32,7 @@ interface Meta {
   refreshToken: string;
   isNew: boolean;
 }
+
 interface RawUser {
   email: string;
   family_name: string;

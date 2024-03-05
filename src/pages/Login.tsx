@@ -1,6 +1,6 @@
-import {Loader2} from 'lucide-react';
-import {useState} from 'react';
-import {login} from '../helpers/login';
+import {login} from "@/utils/pocketbase";
+import {Loader2} from "lucide-react";
+import {useState} from "react";
 
 const Login = () => {
   return (
@@ -20,8 +20,9 @@ const LoginButton = () => {
     try {
       setIsLoading(true);
       await login();
-      window.location.replace('/');
+      window.location.replace("/");
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
 
       // notify({type: 'error', body: error.message});

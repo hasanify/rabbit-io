@@ -1,27 +1,38 @@
-import {RecordSubscription} from 'pocketbase';
-import {pb} from '../helpers/db';
-import {useProjectStore} from '../store/ProjectStore';
-import {Collections, ProjectsResponse} from '../types/pocketbase-types';
+import {useProjectStore} from "@/store/ProjectStore";
+import {AuthSystemFields, Collections, ProjectsResponse} from "@/types/pocketbase-types";
+import {pb} from "@/utils/pocketbase";
+import {RecordSubscription} from "pocketbase";
 
 const usePocketbase = () => {
-  const {addProject, fetchProjects, updateProject, deleteProject} = useProjectStore();
+  const {addProject, fetchProjects, deleteProject, updateProject} = useProjectStore();
   const Pocketbase = {
     fetch: async () => {
-      fetchProjects();
+      await fetchProjects();
     },
-    subscribe: async () => {
+    subscribe: () => {
       pb.collection(Collections.Projects).subscribe(
-        '*',
-        function (e: RecordSubscription<ProjectsResponse>) {
+        "*",
+        async function (e: RecordSubscription<ProjectsResponse>) {
           const action = e.action;
-          if (action === 'create') addProject(e.record);
-          else if (action === 'update') updateProject(e.record);
-          else if (action === 'delete') deleteProject(e.record);
+          console.log(e.record);
+          if (action === "create") addProject(e.record);
+          else if (action === "update") updateProject(e.record);
+          else if (action === "delete") deleteProject(e.record);
         },
       );
+
+      if (pb.authStore.model) {
+        pb.collection("users").subscribe<AuthSystemFields>(pb.authStore.model.id, e => {
+          if (e.action === "delete") {
+            pb.authStore.clear();
+            window.location.replace("/");
+          } else pb.authStore.save(pb.authStore.token, e.record);
+        });
+      }
     },
-    unsubscribe: async () => {
+    unsubscribe: () => {
       pb.collection(Collections.Projects).unsubscribe();
+      pb.collection(pb.authStore.model?.id).unsubscribe();
     },
   };
 

@@ -8,7 +8,7 @@
   "proseWrap": "always",
   "quoteProps": "consistent",
   "semi": true,
-  "singleQuote": true,
+  "doublequotes": true,
   "tabWidth": 2,
   "trailingComma": "all",
   "useTabs": false
